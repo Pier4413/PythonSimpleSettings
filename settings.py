@@ -1,7 +1,8 @@
 from configparser import ConfigParser
+from re import S
 from xmlrpc.client import boolean
 
-class Settings(ConfigParser):
+class Settings():
     
     """
         Static instance for Singleton
@@ -32,7 +33,8 @@ class Settings(ConfigParser):
 
     def loadSettings(self, settingsFile : str = "./settings.ini") -> None:
         self.__fileName = settingsFile
-        self.read(settingsFile)
+        self.__configur = ConfigParser()
+        self.__configur.read(settingsFile)
 
     def get(self, section : str, option : str, defaultValue : str) -> None:
         """
@@ -45,8 +47,11 @@ class Settings(ConfigParser):
             :param defaultValue: The default value
             :type defaultValue: str
         """
-        if(self.has_option(section, option) == True):
-            return super().get(section, option)
+        if(self.__configur.has_section(section) == True):
+            if(self.__configur.has_option(section, option) == True):
+                return self.__configur.get(section, option)
+            else:
+                return defaultValue
         else:
             return defaultValue
 
@@ -61,8 +66,11 @@ class Settings(ConfigParser):
             :param defaultValue: The default value
             :type defaultValue: int
         """
-        if(self.has_option(section, option) == True):
-            return super().getint(section, option)
+        if(self.__configur.has_section(section) == True):
+            if(self.__configur.has_option(section, option) == True):
+                return self.__configur.getint(section, option)
+            else:
+                return defaultValue
         else:
             return defaultValue
 
@@ -77,8 +85,11 @@ class Settings(ConfigParser):
             :param defaultValue: The default value
             :type defaultValue: bool
         """
-        if(self.has_option(section, option) == True):
-            return super().getboolean(section, option)
+        if(self.__configur.has_section(section) == True):
+            if(self.__configur.has_option(section, option) == True):
+                return self.__configur.getboolean(section, option)
+            else:
+                return defaultValue
         else:
             return defaultValue
 
@@ -93,7 +104,30 @@ class Settings(ConfigParser):
             :param defaultValue: The default value
             :type defaultValue: float
         """
-        if(self.has_option(section, option) == True):
-            return super().getfloat(section, option)
+        if(self.__configur.has_section(section) == True):
+            if(self.__configur.has_option(section, option) == True):
+                return self.__configur.getfloat(section, option)
+            else:
+                return defaultValue
         else:
             return defaultValue
+
+    def set(self, section : str, option : str, value : str) -> None:
+        """
+            This function set the value of the option in the file
+
+            :param section: The section in the ini file
+            :type section: str
+            :param option: The option in the ini file
+            :type option: str
+            :param value: The value
+            :type value: str
+        """
+        self.__configur.set(section, option, value)
+
+    def write(self) -> None:
+        """
+            This function writes the settings in the file
+        """
+        with open(self.__fileName, encoding="utf8", mode="w") as file:
+            self.__configur.write(file)
