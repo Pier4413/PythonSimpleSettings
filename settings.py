@@ -3,7 +3,14 @@ from re import S
 from xmlrpc.client import boolean
 
 class Settings():
-    
+    """
+        This class manage the settings from a file using a Singleton
+
+        :author: Panda <panda@delmasweb.net>
+        :date: February 7, 2022
+        :version: 1.0
+    """
+
     """
         Static instance for Singleton
 
@@ -32,6 +39,12 @@ class Settings():
             Settings.__instance = self
 
     def loadSettings(self, settingsFile : str = "./settings.ini") -> None:
+        """
+            This function load the settings from a file
+
+            :param settingsFile: Optional; Default : ./settings.ini; The settings file path (relative or absolute)
+            :type settingsFile: str
+        """
         self.__fileName = settingsFile
         self.__configur = ConfigParser()
         self.__configur.read(settingsFile)
