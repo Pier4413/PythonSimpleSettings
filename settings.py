@@ -17,7 +17,7 @@ class Settings():
     """
     __instance = None
 
-    def getInstance():
+    def get_instance():
         """ 
             Static access method
 
@@ -36,7 +36,7 @@ class Settings():
         else:
             Settings.__instance = self
 
-    def loadSettings(self, settings_file : str = "./settings.ini") -> None:
+    def load_settings(self, settings_file : str = "./settings.ini") -> None:
         """
             This function load the settings from a file
 
