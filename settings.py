@@ -31,7 +31,7 @@ class Settings():
         """
             Virtually private constructor
         """
-        if Settings.__instance != None:
+        if Settings.__instance is not None:
             raise Exception("This class is a singleton!")
         else:
             Settings.__instance = self
