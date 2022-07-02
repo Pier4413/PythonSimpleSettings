@@ -61,10 +61,7 @@ class Settings():
         if(self.__configur.has_section(section) == True):
             if(self.__configur.has_option(section, option) == True):
                 return self.__configur.get(section, option)
-            else:
-                return default_value
-        else:
-            return default_value
+        return default_value
 
     def getint(self, section : str, option : str, default_value : int) -> None:
         """
@@ -80,10 +77,7 @@ class Settings():
         if(self.__configur.has_section(section) == True):
             if(self.__configur.has_option(section, option) == True):
                 return self.__configur.getint(section, option)
-            else:
-                return default_value
-        else:
-            return default_value
+        return default_value
 
     def getboolean(self, section : str, option : str, default_value : bool) -> None:
         """
@@ -99,10 +93,7 @@ class Settings():
         if(self.__configur.has_section(section) == True):
             if(self.__configur.has_option(section, option) == True):
                 return self.__configur.getboolean(section, option)
-            else:
-                return default_value
-        else:
-            return default_value
+        return default_value
 
     def getfloat(self, section : str, option : str, default_value : float) -> None:
         """
@@ -118,10 +109,7 @@ class Settings():
         if(self.__configur.has_section(section) == True):
             if(self.__configur.has_option(section, option) == True):
                 return self.__configur.getfloat(section, option)
-            else:
-                return default_value
-        else:
-            return default_value
+        return default_value
 
     def set(self, section : str, option : str, value : str) -> None:
         """
