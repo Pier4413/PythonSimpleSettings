@@ -1,4 +1,5 @@
 from configparser import ConfigParser
+from .error import SettingsError
 
 class Settings():
     """
@@ -43,9 +44,13 @@ class Settings():
             :param settingsFile: Optional; Default : ./settings.ini; The settings file path (relative or absolute)
             :type settingsFile: str
         """
-        self.__fileName = settings_file
-        self.__configur = ConfigParser()
-        self.__configur.read(settings_file)
+        if settings_file is not None:
+            self.__fileName = settings_file
+            self.__configur = ConfigParser()
+            self.__configur.read(settings_file)
+        else:
+            self.__fileName = None
+            self.__configur = ConfigParser()
 
     def get(section : str, option : str, default_value : str) -> None:
         """
@@ -58,7 +63,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: str
         """
-        if Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.get(section, option)
         return default_value
@@ -74,7 +79,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: int
         """
-        if Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getint(section, option)
         return default_value
@@ -90,7 +95,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: bool
         """
-        if Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None :
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getboolean(section, option)
         return default_value
@@ -106,7 +111,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: float
         """
-        if Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getfloat(section, option)
         return default_value
@@ -123,10 +128,13 @@ class Settings():
             :type value: str
         """
         Settings.get_instance().__configur.set(section, option, value)
-
+        
     def write() -> None:
         """
             This function writes the settings in the file
         """
-        with open(Settings.get_instance().__fileName, encoding="utf8", mode="w") as file:
-            Settings.get_instance().__configur.write(file)
+        if Settings.get_instance().__fileName is not None:
+            with open(Settings.get_instance().__fileName, encoding="utf8", mode="w") as file:
+                Settings.get_instance().__configur.write(file)
+        else:
+            raise SettingsError("Can't save. No filename provided")
