@@ -36,6 +36,7 @@ class Settings():
             raise Exception("This class is a singleton!")
         else:
             Settings.__instance = self
+            self.load_settings()
 
     def load_settings(self, settings_file : str = "./settings.ini") -> None:
         """
@@ -63,7 +64,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: str
         """
-        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None:
+        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.get(section, option)
         return default_value
@@ -79,7 +80,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: int
         """
-        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None:
+        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getint(section, option)
         return default_value
@@ -95,7 +96,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: bool
         """
-        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None :
+        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getboolean(section, option)
         return default_value
@@ -111,7 +112,7 @@ class Settings():
             :param default_value: The default value
             :type default_value: float
         """
-        if Settings.get_instance().__configur.has_section(section) is True and Settings.get_instance().__fileName is not None:
+        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getfloat(section, option)
         return default_value
