@@ -48,12 +48,12 @@ class Settings():
         if settings_file is not None:
             self.__fileName = settings_file
             self.__configur = ConfigParser()
-            self.__configur.read(settings_file)
+            self.__configur.read(settings_file, encoding="utf8")
         else:
             self.__fileName = None
             self.__configur = ConfigParser()
 
-    def get(section : str, option : str, default_value : str) -> None:
+    def get(section : str, option : str, default_value : str) -> str:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
 
@@ -69,7 +69,7 @@ class Settings():
                 return Settings.get_instance().__configur.get(section, option)
         return default_value
 
-    def getint(section : str, option : str, default_value : int) -> None:
+    def getint(section : str, option : str, default_value : int) -> int:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
 
@@ -85,7 +85,7 @@ class Settings():
                 return Settings.get_instance().__configur.getint(section, option)
         return default_value
 
-    def getboolean(section : str, option : str, default_value : bool) -> None:
+    def getboolean(section : str, option : str, default_value : bool) -> bool:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
 
@@ -101,7 +101,7 @@ class Settings():
                 return Settings.get_instance().__configur.getboolean(section, option)
         return default_value
 
-    def getfloat(section : str, option : str, default_value : float) -> None:
+    def getfloat(section : str, option : str, default_value : float) -> float:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
 
