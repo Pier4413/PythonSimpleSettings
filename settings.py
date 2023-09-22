@@ -18,6 +18,14 @@ class Settings():
     """
     __instance = None
 
+    @property
+    def fileName(self) -> str:
+        if self.__fileName is not None:
+            return self.__fileName
+        else:
+            raise Exception("No filename") 
+
+    @staticmethod
     def get_instance():
         """ 
             Static access method
@@ -28,7 +36,7 @@ class Settings():
             Settings()
         return Settings.__instance
    
-    def __init__(self):
+    def __init__(self : "Settings"):
         """
             Virtually private constructor
         """
@@ -38,7 +46,7 @@ class Settings():
             Settings.__instance = self
             self.load_settings()
 
-    def load_settings(self, settings_file : str = "./settings.ini") -> None:
+    def load_settings(self : "Settings", settings_file : str = "./settings.ini") -> None:
         """
             This function load the settings from a file
 
@@ -53,7 +61,7 @@ class Settings():
             self.__fileName = None
             self.__configur = ConfigParser()
 
-    def get(section : str, option : str, default_value : str) -> str:
+    def get(section : str, option : str, default_value : str) -> str:  # type: ignore
         """
             This function returns the value of the option in the section if exists or default_value otherwise
 
@@ -64,11 +72,12 @@ class Settings():
             :param default_value: The default value
             :type default_value: str
         """
-        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance() is not None and Settings.get_instance().fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.get(section, option)
         return default_value
 
+    @staticmethod
     def getint(section : str, option : str, default_value : int) -> int:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
@@ -80,11 +89,12 @@ class Settings():
             :param default_value: The default value
             :type default_value: int
         """
-        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getint(section, option)
         return default_value
 
+    @staticmethod
     def getboolean(section : str, option : str, default_value : bool) -> bool:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
@@ -96,11 +106,12 @@ class Settings():
             :param default_value: The default value
             :type default_value: bool
         """
-        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getboolean(section, option)
         return default_value
 
+    @staticmethod
     def getfloat(section : str, option : str, default_value : float) -> float:
         """
             This function returns the value of the option in the section if exists or default_value otherwise
@@ -112,11 +123,12 @@ class Settings():
             :param default_value: The default value
             :type default_value: float
         """
-        if Settings.get_instance().__fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
+        if Settings.get_instance().fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getfloat(section, option)
         return default_value
 
+    @staticmethod
     def set(section : str, option : str, value : str) -> None:
         """
             This function set the value of the option in the file
@@ -129,13 +141,11 @@ class Settings():
             :type value: str
         """
         Settings.get_instance().__configur.set(section, option, value)
-        
+
+    @staticmethod 
     def write() -> None:
         """
             This function writes the settings in the file
         """
-        if Settings.get_instance().__fileName is not None:
-            with open(Settings.get_instance().__fileName, encoding="utf8", mode="w") as file:
-                Settings.get_instance().__configur.write(file)
-        else:
-            raise SettingsError("Can't save. No filename provided")
+        with open(Settings.get_instance().fileName, encoding="utf8", mode="w") as file:
+            Settings.get_instance().__configur.write(file)
