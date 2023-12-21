@@ -1,5 +1,4 @@
 from configparser import ConfigParser
-from .error import SettingsError
 
 class Settings():
     """
