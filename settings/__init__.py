@@ -61,6 +61,7 @@ class Settings():
             self.__fileName = None
             self.__configur = ConfigParser()
 
+    @staticmethod
     def get(section : str, option : str, default_value : str) -> str:  # type: ignore
         """
             This function returns the value of the option in the section if exists or default_value otherwise
