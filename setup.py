@@ -1,10 +1,11 @@
 from setuptools import setup
+from settings.metadata.__version__ import __version__
 
 setup(
     name='settings',
     packages=['settings'],
     description='A simple wrapper for configparser',
-    version='1.0.1',  # updated
+    version=__version__,  # updated
     url='https://github.com/Pier4413/PythonSimpleSettings',
     author='Panda',
     author_email='panda@delmasweb.net',
