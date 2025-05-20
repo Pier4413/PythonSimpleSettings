@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "settings"
+version = "2.0.0"
+description = "A simple wrapper for configparser"
+authors = [
+    { name = "Panda", email = "panda@delmasweb.net" }
+]
+requires-python = ">=3.12"
+keywords = ["settings"]
+urls = { Homepage = "https://github.com/Pier4413/PythonSimpleSettings" }
+
+[tool.setuptools.packages.find]
+where = ["."]
