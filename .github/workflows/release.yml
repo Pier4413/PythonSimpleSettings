@@ -21,8 +21,8 @@ jobs:
         run: | 
           mkdir -p ~/.config/pip
           echo -e "[global]" > ~/.config/pip/pip.conf
-          echo -e "index-url = https://${{ secrets.HERA_USERNAME }}:${{ secrets.HERA_PASSWORD }}@hera.delmasweb.net/simple" >> ~/.config/pip/pip.conf
-          echo -e "trusted-host = hera.delmasweb.net" >> ~/.config/pip/pip.conf
+          echo -e "index-url = https://${{ secrets.HERA_USERNAME }}:${{ secrets.HERA_PASSWORD }}@python.pithos.delmasweb.net/simple" >> ~/.config/pip/pip.conf
+          echo -e "trusted-host = python.pithos.delmasweb.net" >> ~/.config/pip/pip.conf
           
       - name: Install dependencies
         run: |
