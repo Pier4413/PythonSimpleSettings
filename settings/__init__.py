@@ -148,6 +148,33 @@ class Settings():
             if Settings.get_instance().__configur.has_option(section, option) is True:
                 return Settings.get_instance().__configur.getfloat(section, option)
         return default_value
+    
+    @staticmethod
+    def getlist(section: str, option: str, default_value: list[str]) -> list[str]:
+        """
+            This function returns the value of the option in the section if exists or default_value otherwise
+
+            :param section: The section in the ini file
+            :type section: str
+            :param option: The option in the ini file
+            :type option: str
+            :param default_value: The default value
+            :type default_value: list[str]
+        """
+        if Settings.get_instance().fileName is not None and Settings.get_instance().__configur.has_section(section) is True:
+            if Settings.get_instance().__configur.has_option(section, option) is True:
+                raw = Settings.get(section, option, "")
+                if not raw.strip():
+                    return default_value
+                return [x.strip() for x in raw.split(",") if x.strip()]
+        return default_value
+
+    @staticmethod
+    def items(section: str) -> dict[str, str]:
+        cfg = Settings.get_instance().__configur
+        if not cfg.has_section(section):
+            return {}
+        return {k: v for (k, v) in cfg.items(section)}
 
     @staticmethod
     def set(section : str, option : str, value : str) -> None:
