@@ -54,4 +54,4 @@ jobs:
           TWINE_USERNAME: ${{ secrets.HERA_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.HERA_PASSWORD }}
         run: |
-          python -m twine upload --verbose --repository-url https://hera.delmasweb.net dist/*
+          python -m twine upload --verbose --repository-url https://python.pithos.delmasweb.net dist/*
